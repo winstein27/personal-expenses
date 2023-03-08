@@ -1,5 +1,7 @@
+import Expenses from './components/Expenses';
+
 const App = () => {
-  return <h1>Hello World</h1>;
+  return <Expenses />;
 };
 
 export default App;
