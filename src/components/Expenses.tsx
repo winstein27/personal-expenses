@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import useFetch from '../hooks/useFetch';
 
+import ProgressBar from './UI/ProgressBar';
+
 interface Expense {
   id: string;
   value: number;
@@ -34,7 +36,11 @@ const Expenses = () => {
 
   console.log(expenses);
 
-  return isLoading ? <h1>Loading</h1> : <h1>Ok</h1>;
+  if (isLoading) {
+    return <ProgressBar />;
+  } else {
+    return <h1>Ok</h1>;
+  }
 };
 
 export default Expenses;
