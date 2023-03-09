@@ -2,14 +2,10 @@ import { useState, useEffect } from 'react';
 
 import useFetch from '../hooks/useFetch';
 
-import ProgressBar from './UI/ProgressBar';
+import Expense from './expenses/ExpenseInterface';
 
-interface Expense {
-  id: string;
-  value: number;
-  description: string;
-  date: Date;
-}
+import ExpensesList from './expenses/ExpensesList';
+import ProgressBar from './UI/ProgressBar';
 
 const Expenses = () => {
   const [expenses, setExpenses] = useState([] as Expense[]);
@@ -39,7 +35,7 @@ const Expenses = () => {
   if (isLoading) {
     return <ProgressBar />;
   } else {
-    return <h1>Ok</h1>;
+    return <ExpensesList expenses={expenses} />;
   }
 };
 
