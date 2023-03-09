@@ -83,7 +83,7 @@ Use this section to outline areas that you want to continue focusing on in futur
 ### Useful resources
 
 - [CSS Variables for React Devs](https://www.joshwcomeau.com/css/css-variables-for-react-devs/) - This helped to set up global style variables in styled components.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [Box-shadow examples](https://getcssscan.com/css-box-shadow-examples) - This is a page with multiple examples of box-shadow usage.
 
 ## Author
 
