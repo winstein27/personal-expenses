@@ -7,7 +7,7 @@ import theme from '../../styles/theme';
 const Container = styled.div`
   width: 100%;
   height: 10px;
-  background: ${theme.COLORS.b};
+  background: ${theme.colors.b};
   position: relative;
 `;
 
@@ -23,7 +23,7 @@ const ProgressBar = () => {
   const Fill = styled.div`
     width: 8%;
     height: 100%;
-    background: ${theme.COLORS.d};
+    background: ${theme.colors.d};
     position: absolute;
     left: ${position}%;
   `;
