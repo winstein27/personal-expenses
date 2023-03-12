@@ -30,8 +30,6 @@ const Expenses = () => {
     fetchExpenses({}, loadExpenses);
   }, [fetchExpenses]);
 
-  console.log(expenses);
-
   if (isLoading) {
     return <ProgressBar />;
   } else {
