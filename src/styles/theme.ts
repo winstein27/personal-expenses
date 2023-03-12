@@ -1,6 +1,7 @@
 const colors = {
   cardBackground: '#B1C1C0',
   backgroud: '#f3f3f3',
+  border: '#000',
   b: '#DCEDB9',
   c: '#D2E59E',
   d: '#CBD081',
