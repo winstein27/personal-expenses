@@ -11,6 +11,18 @@ const Container = styled.div`
   position: relative;
 `;
 
+interface FillProps {
+  position: number;
+}
+
+const Fill = styled.div<FillProps>`
+  width: 8%;
+  height: 100%;
+  background: ${theme.colors.d};
+  position: absolute;
+  left: ${(props) => props.position}%;
+`;
+
 const ProgressBar = () => {
   const [position, setPosition] = useState(0);
 
@@ -20,17 +32,9 @@ const ProgressBar = () => {
     });
   }, 20);
 
-  const Fill = styled.div`
-    width: 8%;
-    height: 100%;
-    background: ${theme.colors.d};
-    position: absolute;
-    left: ${position}%;
-  `;
-
   const bar = (
     <Container>
-      <Fill />
+      <Fill position={position} />
     </Container>
   );
 
