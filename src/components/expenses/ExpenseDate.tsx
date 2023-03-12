@@ -19,6 +19,11 @@ const ExpenseDate = ({ date }: Props) => {
     text-align: center;
     background: ${theme.colors.backgroud};
     vertical-align: middle;
+    width: 30%;
+
+    @media (min-width: ${theme.sizes.tablet}) {
+      max-width: 6rem;
+    }
   `;
 
   const Month = styled.div`

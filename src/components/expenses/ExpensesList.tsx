@@ -31,6 +31,11 @@ const ExpensesList = (props: Props) => {
     display: inline-block;
     vertical-align: middle;
     margin: 0 1rem;
+    width: 25%;
+
+    @media (min-width: ${theme.sizes.tablet}) {
+      width: calc(100% - 16rem);
+    }
   `;
 
   const Value = styled.div`
@@ -41,6 +46,12 @@ const ExpensesList = (props: Props) => {
     border-radius: 12px;
     background: ${theme.colors.e};
     color: ${theme.colors.backgroud};
+    width: 33%;
+    text-align: center;
+
+    @media (min-width: ${theme.sizes.tablet}) {
+      max-width: 8rem;
+    }
   `;
 
   return (
