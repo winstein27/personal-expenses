@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import theme from '../styles/theme';
 
@@ -18,7 +19,13 @@ const Nav = styled.nav`
   width: 100%;
 `;
 
-const NewExpense = styled.a`
+const List = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const NewExpense = styled(Link)`
   border-radius: 12px;
   padding: 0.5rem;
   cursor: pointer;
@@ -36,7 +43,11 @@ const Header = () => {
   return (
     <Bar>
       <Nav>
-        <NewExpense href="#">Add Expense</NewExpense>
+        <List>
+          <li>
+            <NewExpense to={'/expenses'}>Expenses</NewExpense>
+          </li>
+        </List>
       </Nav>
     </Bar>
   );
