@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 
 import useFetch from '../hooks/useFetch';
 
-import Expense from './expenses/ExpenseInterface';
+import Expense from '../components/expenses/ExpenseInterface';
 
-import ExpensesList from './expenses/ExpensesList';
-import ProgressBar from './UI/ProgressBar';
+import ExpensesList from '../components/expenses/ExpensesList';
+import ProgressBar from '../components/UI/ProgressBar';
 
 const Expenses = () => {
   const [expenses, setExpenses] = useState([] as Expense[]);
