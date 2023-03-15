@@ -4,6 +4,7 @@ const colors = {
   border: '#000',
   invalidBorder: '#ff0f0f',
   invalidBackground: '#ffb6b6',
+  disabled: '#9b9b9b',
   b: '#DCEDB9',
   c: '#D2E59E',
   d: '#CBD081',

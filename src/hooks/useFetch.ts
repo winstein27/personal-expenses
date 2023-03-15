@@ -1,7 +1,9 @@
 import { useState, useCallback } from 'react';
 
 interface Config {
-  method?: 'GET';
+  method?: 'GET' | 'POST';
+  headers?: { 'Content-type': string };
+  body?: any;
 }
 
 const URL =
@@ -19,6 +21,8 @@ const useFetch = () => {
       try {
         const response = await fetch(URL, {
           method: requestConfig.method ? requestConfig.method : 'GET',
+          headers: requestConfig.headers ? requestConfig.headers : {},
+          body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
         });
 
         if (!response.ok) {

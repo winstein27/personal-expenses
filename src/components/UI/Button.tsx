@@ -14,14 +14,24 @@ const StyledButton = styled.button`
   :active {
     border: 2px solid black;
   }
+
+  &:disabled {
+    background: ${theme.colors.disabled};
+  }
 `;
 
 interface Props {
   children: React.ReactNode;
+  type?: 'button' | 'reset' | 'submit';
+  disabled?: boolean;
 }
 
-const Button = ({ children }: Props) => {
-  return <StyledButton>{children}</StyledButton>;
+const Button = (props: Props) => {
+  return (
+    <StyledButton type={props.type} disabled={props.disabled}>
+      {props.children}
+    </StyledButton>
+  );
 };
 
 export default Button;
