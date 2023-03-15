@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 
-import useFetch from '../hooks/useFetch';
+import useFetch from '../../hooks/useFetch';
 
-import Expense from '../components/expenses/ExpenseInterface';
+import Expense from '../../components/expenses/ExpenseInterface';
 
-import ExpensesList from '../components/expenses/ExpensesList';
-import ProgressBar from '../components/UI/ProgressBar';
+import ExpensesList from '../../components/expenses/ExpensesList';
+import ProgressBar from '../../components/UI/ProgressBar';
 
-const Expenses = () => {
+const Index = () => {
   const [expenses, setExpenses] = useState([] as Expense[]);
   const { isLoading, error, sendRequest: fetchExpenses } = useFetch();
 
@@ -37,4 +37,4 @@ const Expenses = () => {
   }
 };
 
-export default Expenses;
+export default Index;

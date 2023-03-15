@@ -2,7 +2,8 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import Root from './pages/Root';
 import Welcome from './pages/Welcome';
-import Expenses from './pages/Expenses';
+import ExpensesIndex from './pages/expenses/Index';
+import NewExpense from './pages/expenses/NewExpense';
 
 const router = createBrowserRouter([
   {
@@ -10,7 +11,11 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       { path: '/', element: <Welcome /> },
-      { path: '/expenses', element: <Expenses /> },
+      {
+        path: '/expenses',
+        element: <ExpensesIndex />,
+      },
+      { path: '/expenses/new-expense', element: <NewExpense /> },
     ],
   },
 ]);
