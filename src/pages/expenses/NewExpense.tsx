@@ -8,6 +8,7 @@ import Card from '../../components/UI/Card';
 
 const Form = styled.form`
   text-align: center;
+  width: 100%;
 `;
 
 const InputGroup = styled.div`
@@ -20,12 +21,16 @@ const Label = styled.label`
 `;
 
 const Input = styled.input<{ invalid: boolean }>`
-  width: 20rem;
+  width: 80%;
   text-align: right;
   border: ${(props) =>
     props.invalid ? '1px solid ' + theme.colors.invalidBorder : ''};
   background: ${(props) =>
     props.invalid ? theme.colors.invalidBackground : ''};
+
+  @media (min-width: ${theme.sizes.tablet}) {
+    width: 20rem;
+  }
 `;
 
 const dateValidation = (date: string) => {
