@@ -1,3 +1,5 @@
+import { redirect } from 'react-router-dom';
+
 import useFetch from '../../hooks/useFetch';
 
 import ExpenseForm from '../../components/expenses/ExpenseForm';
@@ -16,7 +18,7 @@ const NewExpense = () => {
     const month = newDate.getMonth();
     const year = newDate.getFullYear();
 
-    sendRequest(
+    await sendRequest(
       {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
@@ -28,6 +30,8 @@ const NewExpense = () => {
       },
       () => null
     );
+
+    redirect('/expenses');
   };
 
   if (isLoading) {

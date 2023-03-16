@@ -8,6 +8,7 @@ const Container = styled.main`
   max-width: 1440px;
   margin: auto;
   margin-top: 5rem;
+  text-align: center;
 `;
 
 const Root = () => {
