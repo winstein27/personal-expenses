@@ -1,6 +1,6 @@
 # Personal Expenses
 
-This is a solution to the [Notifications page challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/notifications-page-DqK5QAmKbC). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+This project allows users to monitor their expenses by providing a financial controller that enables them to view and add new transactions.
 
 ## Table of contents
 
@@ -11,7 +11,6 @@ This is a solution to the [Notifications page challenge on Frontend Mentor](http
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
 
@@ -21,19 +20,23 @@ This is a solution to the [Notifications page challenge on Frontend Mentor](http
 
 Users should be able to:
 
-- Distinguish between "unread" and "read" notifications
-- Select "Mark all as read" to toggle the visual state of the unread notifications and set the number of unread messages to zero
-- View the optimal layout for the interface depending on their device's screen size
+- See the expenses list
+- Add new expense
+- See warning for invalid inputs
 - See hover and focus states for all interactive elements on the page
+- Use the software on any device sizes
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![](./screenshoots/01.png)
+![](./screenshoots/02.png)
+![](./screenshoots/03.png)
+![](./screenshoots/04.png)
+![](./screenshoots/05.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [Add live site URL here](https://personal-expenses-sand.vercel.app/)
 
 ## My process
 
@@ -50,35 +53,78 @@ Users should be able to:
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+React hook to fetch data from firebase:
 
-To see how you can add code snippets, see below:
+```ts
+const [isLoading, setIsLoading] = useState(false);
+const [error, setError] = useState(null);
 
-```html
-<h1>Some HTML code I'm proud of</h1>
+const sendRequest = useCallback(
+  async (requestConfig: Config, loadData: (data: any) => void) => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(URL, {
+        method: requestConfig.method ? requestConfig.method : 'GET',
+        headers: requestConfig.headers ? requestConfig.headers : {},
+        body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
+      });
+
+      if (!response.ok) {
+        throw new Error('Request failed.');
+      }
+
+      const data = await response.json();
+      loadData(data);
+    } catch (error: unknown) {
+      console.log(error);
+    }
+
+    setIsLoading(false);
+  },
+  []
+);
+
+return { isLoading, error, sendRequest };
 ```
 
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
+React router routes:
+
+```ts
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    children: [
+      { path: '/', element: <Welcome /> },
+      {
+        path: '/expenses',
+        element: <ExpensesIndex />,
+      },
+      { path: '/expenses/new-expense', element: <NewExpense /> },
+    ],
+  },
+]);
 ```
 
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉');
-};
+Custom component in Styled Components:
+
+```ts
+const NewExpense = styled(Link)`
+  border-radius: 12px;
+  padding: 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+
+  &:hover,
+  :active {
+    text-decoration: underline;
+    color: ${theme.colors.e};
+  }
+`;
 ```
-
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
-
-**Note: Delete this note and the content within this section and replace with your own learnings.**
-
-### Continued development
-
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
 
 ### Useful resources
 
