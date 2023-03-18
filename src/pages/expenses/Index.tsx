@@ -52,7 +52,7 @@ const Index = () => {
     return (
       <>
         <NewExpense to={'/expenses/new-expense'}>Add new expense</NewExpense>
-        <ExpensesList expenses={expenses} />;
+        <ExpensesList expenses={expenses} />
       </>
     );
   }
