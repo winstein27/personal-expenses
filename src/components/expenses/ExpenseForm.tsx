@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import useInput from '../../hooks/useInput';
+
 import theme from '../../styles/theme';
 
 import Button from '../../components/UI/Button';
@@ -37,26 +39,26 @@ const dateValidation = (date: string) => {
   const parsedDate = new Date(date);
 
   if (parsedDate.toString() === 'Invalid Date') {
-    return false;
+    return true;
   }
 
-  return parsedDate.getTime() <= new Date().getTime();
+  return parsedDate.getTime() > new Date().getTime();
 };
 
 const valueValidation = (value: string) => {
   // value must be a number
   if (value.trim() === '' || isNaN(value as unknown as number)) {
-    return false;
+    return true;
   }
 
   // if value is decimal, must have at most 2 digits after dot
-  let valid = true;
+  let invalid = false;
   if (value.includes('.')) {
-    valid = value.indexOf('.') >= value.length - 3;
+    invalid = value.indexOf('.') < value.length - 3;
   }
 
   // value must be positive
-  return valid && Number.parseFloat(value) > 0;
+  return invalid || Number.parseFloat(value) <= 0;
 };
 
 interface Props {
@@ -64,29 +66,41 @@ interface Props {
 }
 
 const ExpenseForm = (props: Props) => {
-  const [enteredDate, setEnteredDate] = useState('');
-  const [enteredDateTouched, setEnteredDateTouched] = useState(false);
+  const {
+    value: enteredDate,
+    valueTouched: enteredDateTouched,
+    valueHasError: enteredDateHasError,
+    valueChangedHandler: enteredDateChagedHandler,
+    valueBlurHandler: enteredDateBlurHandler,
+  } = useInput(dateValidation);
 
-  const [enteredValue, setEnteredValue] = useState('');
-  const [enteredValueTouched, setEnteredValueTouched] = useState(false);
+  const {
+    value: enteredValue,
+    valueTouched: enteredValueTouched,
+    valueHasError: enteredValueHasError,
+    valueChangedHandler: enteredValueChangedHandler,
+    valueBlurHandler: enteredValueBlurHandler,
+  } = useInput(valueValidation);
 
-  const [enteredDescription, setEnteredDescription] = useState('');
-  const [enteredDescriptionTouched, setEnteredDescriptionTouched] =
-    useState(false);
-
-  const enteredDateIsValid = dateValidation(enteredDate);
-  const enteredValueIsValid = valueValidation(enteredValue);
-  const enteredDescriptionIsValid = enteredDescription.trim().length > 0;
+  const {
+    value: enteredDescription,
+    valueTouched: enteredDescriptionTouched,
+    valueHasError: enteredDescriptionHasError,
+    valueChangedHandler: enteredDescriptionChagedHandler,
+    valueBlurHandler: enteredDescriptionBlurHandler,
+  } = useInput((value) => value.trim().length === 0);
 
   const formIsValid =
-    enteredDateIsValid && enteredValueIsValid && enteredDescriptionIsValid;
+    !enteredDateHasError &&
+    !enteredValueHasError &&
+    !enteredDescriptionHasError;
 
   const formSubmissionHandler = (event: React.FormEvent) => {
     event.preventDefault();
 
-    setEnteredDateTouched(true);
-    setEnteredValueTouched(true);
-    setEnteredDescriptionTouched(true);
+    enteredDateBlurHandler();
+    enteredValueBlurHandler();
+    enteredDescriptionBlurHandler();
 
     if (formIsValid) {
       props.sendExpense(enteredDate, enteredValue, enteredDescription);
@@ -102,9 +116,9 @@ const ExpenseForm = (props: Props) => {
             id="date"
             type="date"
             value={enteredDate}
-            onChange={(event) => setEnteredDate(event.target.value)}
-            onBlur={() => setEnteredDateTouched(true)}
-            invalid={enteredDateTouched && !enteredDateIsValid}
+            onChange={enteredDateChagedHandler}
+            onBlur={enteredDateBlurHandler}
+            invalid={enteredDateTouched && enteredDateHasError}
           />
         </InputGroup>
 
@@ -115,9 +129,9 @@ const ExpenseForm = (props: Props) => {
             type="number"
             step=".01"
             value={enteredValue}
-            onChange={(event) => setEnteredValue(event.target.value)}
-            onBlur={() => setEnteredValueTouched(true)}
-            invalid={enteredValueTouched && !enteredValueIsValid}
+            onChange={enteredValueChangedHandler}
+            onBlur={enteredValueBlurHandler}
+            invalid={enteredValueTouched && enteredValueHasError}
           />
         </InputGroup>
 
@@ -127,9 +141,9 @@ const ExpenseForm = (props: Props) => {
             id="description"
             type="text"
             value={enteredDescription}
-            onChange={(event) => setEnteredDescription(event.target.value)}
-            onBlur={() => setEnteredDescriptionTouched(true)}
-            invalid={enteredDescriptionTouched && !enteredDescriptionIsValid}
+            onChange={enteredDescriptionChagedHandler}
+            onBlur={enteredDescriptionBlurHandler}
+            invalid={enteredDescriptionTouched && enteredDescriptionHasError}
           />
         </InputGroup>
 
