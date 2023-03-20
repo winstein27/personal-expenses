@@ -1,4 +1,4 @@
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import useFetch from '../../hooks/useFetch';
 
@@ -7,6 +7,7 @@ import ProgressBar from '../../components/UI/ProgressBar';
 
 const NewExpense = () => {
   const { isLoading, error, sendRequest } = useFetch();
+  const navigate = useNavigate();
 
   const sendExpense = async (
     date: string,
@@ -31,7 +32,9 @@ const NewExpense = () => {
       () => null
     );
 
-    redirect('/expenses');
+    if (!error) {
+      navigate('/expenses');
+    }
   };
 
   if (isLoading) {
