@@ -36,7 +36,7 @@ const Index = () => {
           id: key,
           value: data[key].value as number,
           description: data[key].description as string,
-          date: new Date(data[key].date),
+          date: new Date(data[key].date + 'T01:00:00'),
         });
       }
 
