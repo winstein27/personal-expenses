@@ -16,6 +16,7 @@ const router = createBrowserRouter([
         element: <ExpensesIndex />,
       },
       { path: '/expenses/new-expense', element: <NewExpense /> },
+      { path: '/expenses/edit/:id', element: <NewExpense /> },
     ],
   },
 ]);

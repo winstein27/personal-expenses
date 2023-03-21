@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import useInput from '../../hooks/useInput';
+import useFetch from '../../hooks/useFetch';
 
 import theme from '../../styles/theme';
 
@@ -62,16 +64,28 @@ const valueValidation = (value: string) => {
 };
 
 interface Props {
-  sendExpense: (date: string, value: string, description: string) => void;
+  sendExpense: (
+    isUpdating: boolean,
+    date: string,
+    value: string,
+    description: string,
+    id?: string
+  ) => void;
 }
 
 const ExpenseForm = (props: Props) => {
+  const params = useParams();
+  const { error, isLoading, sendRequest } = useFetch();
+
+  const isUpdating = params.id !== undefined;
+
   const {
     value: enteredDate,
     valueTouched: enteredDateTouched,
     valueHasError: enteredDateHasError,
     valueChangedHandler: enteredDateChagedHandler,
     valueBlurHandler: enteredDateBlurHandler,
+    updateValue: updateDate,
   } = useInput(dateValidation);
 
   const {
@@ -80,6 +94,7 @@ const ExpenseForm = (props: Props) => {
     valueHasError: enteredValueHasError,
     valueChangedHandler: enteredValueChangedHandler,
     valueBlurHandler: enteredValueBlurHandler,
+    updateValue,
   } = useInput(valueValidation);
 
   const {
@@ -88,7 +103,20 @@ const ExpenseForm = (props: Props) => {
     valueHasError: enteredDescriptionHasError,
     valueChangedHandler: enteredDescriptionChagedHandler,
     valueBlurHandler: enteredDescriptionBlurHandler,
-  } = useInput((value) => value.trim().length === 0);
+    updateValue: updateDescription,
+  } = useInput((description) => description.trim().length === 0);
+
+  useEffect(() => {
+    const loadExpense = (data: any) => {
+      updateDate(data.date);
+      updateValue(data.value.toString());
+      updateDescription(data.description);
+    };
+
+    if (isUpdating) {
+      sendRequest({}, loadExpense, params.id);
+    }
+  }, [sendRequest, params.id]);
 
   const formIsValid =
     !enteredDateHasError &&
@@ -103,7 +131,13 @@ const ExpenseForm = (props: Props) => {
     enteredDescriptionBlurHandler();
 
     if (formIsValid) {
-      props.sendExpense(enteredDate, enteredValue, enteredDescription);
+      props.sendExpense(
+        isUpdating,
+        enteredDate,
+        enteredValue,
+        enteredDescription,
+        params.id
+      );
     }
   };
 
@@ -149,7 +183,7 @@ const ExpenseForm = (props: Props) => {
 
         <InputGroup>
           <Button type="submit" disabled={!formIsValid}>
-            Add Expense
+            {isUpdating ? 'Update Expense' : 'Add Expense'}
           </Button>
         </InputGroup>
       </Form>

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Expense from './ExpenseInterface';
@@ -54,11 +55,20 @@ const Value = styled.div`
 `;
 
 const ExpensesList = (props: Props) => {
+  const navigate = useNavigate();
+
+  const expenseItemClickedHandler = (id: string) => {
+    navigate(`/expenses/edit/${id}`);
+  };
+
   return (
     <Card>
       <List>
         {props.expenses.map((expense) => (
-          <ExpenseItem key={expense.id}>
+          <ExpenseItem
+            key={expense.id}
+            onClick={() => expenseItemClickedHandler(expense.id)}
+          >
             <ExpenseDate date={expense.date} />
             <Description>{expense.description}</Description>
             <Value>$ {expense.value.toFixed(2)}</Value>

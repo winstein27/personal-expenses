@@ -10,26 +10,24 @@ const NewExpense = () => {
   const navigate = useNavigate();
 
   const sendExpense = async (
+    isUpdating: boolean,
     date: string,
     value: string,
-    description: string
+    description: string,
+    id?: string
   ) => {
-    const newDate = new Date(date);
-    const day = newDate.getDay();
-    const month = newDate.getMonth();
-    const year = newDate.getFullYear();
-
     await sendRequest(
       {
-        method: 'POST',
+        method: isUpdating ? 'PUT' : 'POST',
         headers: { 'Content-type': 'application/json' },
         body: {
-          date: `${month}-${day}-${year}`,
+          date: date,
           value: Number.parseFloat(value),
           description: description,
         },
       },
-      () => null
+      () => null,
+      id
     );
 
     if (!error) {

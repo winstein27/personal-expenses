@@ -14,12 +14,17 @@ const useInput = (validation: (value: string) => boolean) => {
     setValueTouched(true);
   };
 
+  const updateValue = (value: string) => {
+    setEnteredValue(value);
+  };
+
   return {
     value: enteredValue,
     valueTouched,
     valueHasError,
     valueChangedHandler,
     valueBlurHandler,
+    updateValue,
   };
 };
 
