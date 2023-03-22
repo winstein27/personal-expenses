@@ -10,6 +10,7 @@ const colors = {
   d: '#CBD081',
   e: '#918868',
   button: { action: '#918868', outlined: '#f3f3f3', danger: '#ff0f0f' },
+  backdrop: 'rgba(0, 0, 0, 0.5)',
 };
 
 const fontWeights = {

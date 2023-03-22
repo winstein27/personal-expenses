@@ -14,6 +14,7 @@ const StyledButton = styled.button<{
   border-radius: 6px;
   display: block;
   margin: 0.5rem auto;
+  width: 100%;
 
   &:hover,
   :active {
@@ -28,6 +29,7 @@ const StyledButton = styled.button<{
   @media (min-width: ${theme.sizes.tablet}) {
     margin: 0.5rem;
     display: inline-block;
+    width: auto;
   }
 `;
 

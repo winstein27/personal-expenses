@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -9,6 +9,7 @@ import theme from '../../styles/theme';
 
 import Button from '../../components/UI/Button';
 import Card from '../../components/UI/Card';
+import ConfirmModal from '../UI/ConfirmModal';
 
 const Form = styled.form`
   text-align: center;
@@ -77,6 +78,7 @@ const ExpenseForm = (props: Props) => {
   const params = useParams();
   const { error, isLoading, sendRequest } = useFetch();
   const navigate = useNavigate();
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
 
   const isUpdating = params.id !== undefined;
 
@@ -146,13 +148,19 @@ const ExpenseForm = (props: Props) => {
     navigate('/expenses');
   };
 
+  const deleteExpenseClickedHandler = () => {
+    setDeleteModalIsOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModalIsOpen(false);
+  };
+
   const deleteExpense = () => {
     if (!params.id) {
       return;
     }
-
     sendRequest({ method: 'DELETE' }, () => null, params.id);
-
     navigateToExpensesList();
   };
 
@@ -208,9 +216,23 @@ const ExpenseForm = (props: Props) => {
             Back
           </Button>
           {isUpdating && (
-            <Button type="button" variant="danger" onClick={deleteExpense}>
-              Delete
-            </Button>
+            <>
+              <Button
+                type="button"
+                variant="danger"
+                onClick={deleteExpenseClickedHandler}
+              >
+                Delete
+              </Button>
+              {deleteModalIsOpen && (
+                <ConfirmModal
+                  closeModal={closeDeleteModal}
+                  confirm={deleteExpense}
+                >
+                  Do you want to delete {enteredDescription} expense?
+                </ConfirmModal>
+              )}
+            </>
           )}
         </InputGroup>
       </Form>
