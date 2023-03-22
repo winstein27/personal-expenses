@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import useInput from '../../hooks/useInput';
@@ -76,6 +76,7 @@ interface Props {
 const ExpenseForm = (props: Props) => {
   const params = useParams();
   const { error, isLoading, sendRequest } = useFetch();
+  const navigate = useNavigate();
 
   const isUpdating = params.id !== undefined;
 
@@ -141,6 +142,20 @@ const ExpenseForm = (props: Props) => {
     }
   };
 
+  const navigateToExpensesList = () => {
+    navigate('/expenses');
+  };
+
+  const deleteExpense = () => {
+    if (!params.id) {
+      return;
+    }
+
+    sendRequest({ method: 'DELETE' }, () => null, params.id);
+
+    navigateToExpensesList();
+  };
+
   return (
     <Card>
       <Form method="POST" onSubmit={formSubmissionHandler}>
@@ -185,6 +200,18 @@ const ExpenseForm = (props: Props) => {
           <Button type="submit" disabled={!formIsValid}>
             {isUpdating ? 'Update Expense' : 'Add Expense'}
           </Button>
+          <Button
+            type="button"
+            variant="outlined"
+            onClick={navigateToExpensesList}
+          >
+            Back
+          </Button>
+          {isUpdating && (
+            <Button type="button" variant="danger" onClick={deleteExpense}>
+              Delete
+            </Button>
+          )}
         </InputGroup>
       </Form>
     </Card>

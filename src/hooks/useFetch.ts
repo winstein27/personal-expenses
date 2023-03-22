@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 interface Config {
-  method?: 'GET' | 'POST' | 'PUT';
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
   headers?: { 'Content-type': string };
   body?: any;
 }
