@@ -21,7 +21,7 @@ This project allows users to monitor their expenses by providing a financial con
 Users should be able to:
 
 - See the expenses list
-- Add new expense
+- Add/Remove/Edit/See expense
 - See warning for invalid inputs
 - See hover and focus states for all interactive elements on the page
 - Use the software on any device sizes
@@ -33,6 +33,8 @@ Users should be able to:
 ![](./screenshoots/03.png)
 ![](./screenshoots/04.png)
 ![](./screenshoots/05.png)
+![](./screenshoots/06.png)
+![](./screenshoots/07.png)
 
 ### Links
 
@@ -46,6 +48,7 @@ Users should be able to:
 - CSS custom properties
 - Mobile-first workflow
 - React
+- React Router
 - TypeScript
 - Styled Components
 - Vite
@@ -87,6 +90,38 @@ const sendRequest = useCallback(
 );
 
 return { isLoading, error, sendRequest };
+```
+
+React hook to validate inputs:
+
+```ts
+const useInput = (validation: (value: string) => boolean) => {
+  const [enteredValue, setEnteredValue] = useState('');
+  const [valueTouched, setValueTouched] = useState(false);
+
+  const valueHasError = validation(enteredValue);
+
+  const valueChangedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEnteredValue(event.target.value);
+  };
+
+  const valueBlurHandler = () => {
+    setValueTouched(true);
+  };
+
+  const updateValue = (value: string) => {
+    setEnteredValue(value);
+  };
+
+  return {
+    value: enteredValue,
+    valueTouched,
+    valueHasError,
+    valueChangedHandler,
+    valueBlurHandler,
+    updateValue,
+  };
+};
 ```
 
 React router routes:
