@@ -46,16 +46,14 @@ const Index = () => {
     fetchExpenses({}, loadExpenses);
   }, [fetchExpenses]);
 
-  if (isLoading) {
-    return <ProgressBar />;
-  } else {
-    return (
-      <>
-        <NewExpense to={'/expenses/new-expense'}>Add new expense</NewExpense>
-        <ExpensesList expenses={expenses} />
-      </>
-    );
-  }
+  return isLoading ? (
+    <ProgressBar />
+  ) : (
+    <>
+      <NewExpense to={'/expenses/new-expense'}>Add new expense</NewExpense>
+      <ExpensesList expenses={expenses} />
+    </>
+  );
 };
 
 export default Index;

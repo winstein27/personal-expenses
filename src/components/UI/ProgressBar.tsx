@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 import theme from '../../styles/theme';
+import Backdrop from './Backdrop';
 
 const Container = styled.div`
   width: 100%;
   height: 10px;
   background: ${theme.colors.b};
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
 `;
 
 interface FillProps {
@@ -38,9 +42,14 @@ const ProgressBar = () => {
     </Container>
   );
 
-  return ReactDOM.createPortal(
-    bar,
-    document.getElementById('progress-root') as HTMLElement
+  return (
+    <>
+      <Backdrop />
+      {ReactDOM.createPortal(
+        <>{bar}</>,
+        document.getElementById('overlay-root') as HTMLElement
+      )}
+    </>
   );
 };
 

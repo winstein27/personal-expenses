@@ -35,11 +35,11 @@ const NewExpense = () => {
     }
   };
 
-  if (isLoading) {
-    return <ProgressBar />;
-  }
-
-  return <ExpenseForm sendExpense={sendExpense} />;
+  return isLoading ? (
+    <ProgressBar />
+  ) : (
+    <ExpenseForm sendExpense={sendExpense} />
+  );
 };
 
 export default NewExpense;

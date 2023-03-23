@@ -50,7 +50,7 @@ const ConfirmModal = (props: Props) => {
             </Button>
           </ButtonGroup>
         </Modal>,
-        document.getElementById('modal-root') as HTMLElement
+        document.getElementById('overlay-root') as HTMLElement
       )}
     </>
   );

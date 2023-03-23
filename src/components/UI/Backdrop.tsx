@@ -14,7 +14,7 @@ const Div = styled.div`
 `;
 
 interface Props {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const Backdrop = (props: Props) => {

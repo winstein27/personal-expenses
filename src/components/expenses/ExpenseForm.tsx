@@ -10,6 +10,7 @@ import theme from '../../styles/theme';
 import Button from '../../components/UI/Button';
 import Card from '../../components/UI/Card';
 import ConfirmModal from '../UI/ConfirmModal';
+import ProgressBar from '../UI/ProgressBar';
 
 const Form = styled.form`
   text-align: center;
@@ -164,7 +165,9 @@ const ExpenseForm = (props: Props) => {
     navigateToExpensesList();
   };
 
-  return (
+  return isLoading ? (
+    <ProgressBar />
+  ) : (
     <Card>
       <Form method="POST" onSubmit={formSubmissionHandler}>
         <InputGroup>
