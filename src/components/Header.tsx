@@ -9,8 +9,7 @@ const Bar = styled.header`
   left: 0;
   top: 0;
   width: 100%;
-  height: 4rem;
-  background: ${theme.colors.b};
+  background: ${theme.colors.white};
   padding: 0.5rem;
 `;
 
@@ -30,12 +29,11 @@ const NewExpense = styled(Link)`
   padding: 0.5rem;
   cursor: pointer;
   text-decoration: none;
-  color: black;
+  color: ${theme.colors.text};
 
   &:hover,
   :active {
-    text-decoration: underline;
-    color: ${theme.colors.e};
+    background: #aac9ff;
   }
 `;
 

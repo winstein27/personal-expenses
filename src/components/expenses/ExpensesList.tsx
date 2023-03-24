@@ -20,10 +20,12 @@ const List = styled.ul`
 
 const ExpenseItem = styled.li`
   margin: 0.5rem 0;
+  color: ${theme.colors.text};
   &:hover {
     box-shadow: ${theme.effects.shadow};
-    border: 1px solid ${theme.colors.e};
     border-radius: 12px;
+    background: ${theme.colors.active};
+    cursor: pointer;
   }
 `;
 
@@ -44,7 +46,7 @@ const Value = styled.div`
   border: 2px solid black;
   padding: 0.5rem;
   border-radius: 12px;
-  background: ${theme.colors.e};
+  background: ${theme.colors.action};
   color: ${theme.colors.backgroud};
   width: 33%;
   text-align: center;

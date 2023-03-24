@@ -1,15 +1,15 @@
 const colors = {
-  cardBackground: '#B1C1C0',
+  cardBackground: '#FFF',
   backgroud: '#f3f3f3',
   border: '#000',
   invalidBorder: '#ff0f0f',
   invalidBackground: '#ffb6b6',
   disabled: '#9b9b9b',
-  b: '#DCEDB9',
-  c: '#D2E59E',
-  d: '#CBD081',
-  e: '#918868',
-  button: { action: '#918868', outlined: '#f3f3f3', danger: '#ff0f0f' },
+  white: '#FFF',
+  active: '#AAC9FF',
+  text: '#5c5c5c',
+  action: '#1B74E4',
+  button: { action: '#1B74E4', outlined: '#f3f3f3', danger: '#ff0f0f' },
   backdrop: 'rgba(0, 0, 0, 0.5)',
 };
 

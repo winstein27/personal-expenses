@@ -8,7 +8,7 @@ import Backdrop from './Backdrop';
 const Container = styled.div`
   width: 100%;
   height: 10px;
-  background: ${theme.colors.b};
+  background: ${theme.colors.active};
   position: fixed;
   left: 0;
   top: 0;
@@ -22,7 +22,7 @@ interface FillProps {
 const Fill = styled.div<FillProps>`
   width: 8%;
   height: 100%;
-  background: ${theme.colors.d};
+  background: ${theme.colors.action};
   position: absolute;
   left: ${(props) => props.position}%;
 `;

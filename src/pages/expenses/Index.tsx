@@ -17,7 +17,7 @@ const NewExpense = styled(Link)`
   padding: 1rem;
   display: inline-block;
   margin: auto;
-  background: ${theme.colors.e};
+  background: ${theme.colors.action};
   color: ${theme.colors.backgroud};
   border-radius: 12px;
   box-shadow: ${theme.effects.shadow};

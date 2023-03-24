@@ -10,7 +10,7 @@ const StyledButton = styled.button<{
   border: none;
   background: ${(props) => theme.colors.button[props.variant]};
   color: ${(props) =>
-    props.variant !== 'outlined' ? theme.colors.backgroud : theme.colors.e};
+    props.variant !== 'outlined' ? theme.colors.backgroud : theme.colors.text};
   border-radius: 6px;
   display: block;
   margin: 0.5rem auto;
