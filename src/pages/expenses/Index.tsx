@@ -32,9 +32,12 @@ const YearFilter = styled.select`
   text-align: center;
 `;
 
+const defaultYearFilter = '0';
+
 const Index = () => {
   const [expenses, setExpenses] = useState([] as Expense[]);
   const { isLoading, error, sendRequest: fetchExpenses } = useFetch();
+  const [yearFilter, setYearFilter] = useState<string>(defaultYearFilter);
 
   useEffect(() => {
     const loadExpenses = (data: any) => {
@@ -49,25 +52,39 @@ const Index = () => {
         });
       }
 
-      setExpenses(loadedExpenses);
+      setExpenses(
+        loadedExpenses.sort((a, b) =>
+          a.date.getTime() < b.date.getTime() ? 1 : -1
+        )
+      );
     };
 
     fetchExpenses({}, loadExpenses);
   }, [fetchExpenses]);
+
+  const expensesList =
+    yearFilter === defaultYearFilter
+      ? expenses
+      : expenses.filter(
+          (expense) => expense.date.getFullYear() === +yearFilter
+        );
 
   return isLoading ? (
     <ProgressBar />
   ) : (
     <>
       <NewExpense to={'/expenses/new-expense'}>Add new expense</NewExpense>
-      <YearFilter>
+      <YearFilter
+        value={yearFilter}
+        onChange={(event) => setYearFilter(event.target.value)}
+      >
         <option value="0">All</option>
         <option value="2023">2023</option>
-        <option value="2023">2022</option>
-        <option value="2023">2021</option>
-        <option value="2023">2020</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+        <option value="2020">2020</option>
       </YearFilter>
-      <ExpensesList expenses={expenses} />
+      <ExpensesList expenses={expensesList} />
     </>
   );
 };

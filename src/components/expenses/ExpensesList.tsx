@@ -76,6 +76,11 @@ const ExpensesList = (props: Props) => {
             <Value>$ {expense.value.toFixed(2)}</Value>
           </ExpenseItem>
         ))}
+        {!props.expenses.length && (
+          <ExpenseItem>
+            <Description>No expenses found!</Description>
+          </ExpenseItem>
+        )}
       </List>
     </Card>
   );
