@@ -23,6 +23,15 @@ const NewExpense = styled(Link)`
   box-shadow: ${theme.effects.shadow};
 `;
 
+const YearFilter = styled.select`
+  display: block;
+  padding: 0.5rem 1.5rem;
+  border: 2px solid ${theme.colors.border};
+  border-radius: 8px;
+  margin: 0.5rem 0;
+  text-align: center;
+`;
+
 const Index = () => {
   const [expenses, setExpenses] = useState([] as Expense[]);
   const { isLoading, error, sendRequest: fetchExpenses } = useFetch();
@@ -51,6 +60,13 @@ const Index = () => {
   ) : (
     <>
       <NewExpense to={'/expenses/new-expense'}>Add new expense</NewExpense>
+      <YearFilter>
+        <option value="0">All</option>
+        <option value="2023">2023</option>
+        <option value="2023">2022</option>
+        <option value="2023">2021</option>
+        <option value="2023">2020</option>
+      </YearFilter>
       <ExpensesList expenses={expenses} />
     </>
   );
