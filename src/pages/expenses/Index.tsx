@@ -28,6 +28,7 @@ const defaultYearFilter = '0';
 
 const Index = () => {
   const [expenses, setExpenses] = useState([] as Expense[]);
+  const [textFilter, setTextFilter] = useState('');
   const { isLoading, error, sendRequest: fetchExpenses } = useFetch();
   const [yearFilter, setYearFilter] = useState<string>(defaultYearFilter);
 
@@ -54,12 +55,18 @@ const Index = () => {
     fetchExpenses({}, loadExpenses);
   }, [fetchExpenses]);
 
-  const expensesList =
+  let expensesList =
     yearFilter === defaultYearFilter
       ? expenses
       : expenses.filter(
           (expense) => expense.date.getFullYear() === +yearFilter
         );
+
+  if (textFilter.trim()) {
+    expensesList = expensesList.filter((expense) =>
+      expense.description.toLowerCase().includes(textFilter.toLowerCase())
+    );
+  }
 
   const yearsList: string[] = [];
 
@@ -79,6 +86,8 @@ const Index = () => {
         year={yearFilter}
         yearChangedHandler={(year: string) => setYearFilter(year)}
         yearsList={yearsList}
+        text={textFilter}
+        textChangedHandler={(text: string) => setTextFilter(text)}
       />
       <ExpensesList expenses={expensesList} />
     </>
