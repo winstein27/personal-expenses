@@ -7,10 +7,7 @@ import theme from '../../styles/theme';
 
 import Card from '../UI/Card';
 import ExpenseDate from './ExpenseDate';
-
-interface Props {
-  expenses: Expense[];
-}
+import Chart from './Chart';
 
 const List = styled.ul`
   list-style-type: none;
@@ -56,6 +53,11 @@ const Value = styled.div`
   }
 `;
 
+interface Props {
+  expenses: Expense[];
+  showChart: boolean;
+}
+
 const ExpensesList = (props: Props) => {
   const navigate = useNavigate();
 
@@ -65,6 +67,7 @@ const ExpensesList = (props: Props) => {
 
   return (
     <Card>
+      {props.showChart && <Chart expenses={props.expenses} />}
       <List>
         {props.expenses.map((expense) => (
           <ExpenseItem

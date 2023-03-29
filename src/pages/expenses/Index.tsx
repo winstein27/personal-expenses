@@ -83,7 +83,6 @@ const Index = () => {
   ) : (
     <>
       <NewExpense to={'/expenses/new-expense'}>Add new expense</NewExpense>
-      {yearFilter !== defaultYearFilter && <Chart expenses={expensesList} />}
       <Filters
         year={yearFilter}
         yearChangedHandler={(year: string) => setYearFilter(year)}
@@ -91,7 +90,10 @@ const Index = () => {
         text={textFilter}
         textChangedHandler={(text: string) => setTextFilter(text)}
       />
-      <ExpensesList expenses={expensesList} />
+      <ExpensesList
+        expenses={expensesList}
+        showChart={yearFilter !== defaultYearFilter}
+      />
     </>
   );
 };
