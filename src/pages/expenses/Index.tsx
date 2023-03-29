@@ -11,6 +11,7 @@ import Expense from '../../components/expenses/ExpenseInterface';
 import ExpensesList from '../../components/expenses/ExpensesList';
 import ProgressBar from '../../components/UI/ProgressBar';
 import Filters from '../../components/expenses/Filters';
+import Chart from '../../components/expenses/Chart';
 
 const NewExpense = styled(Link)`
   text-decoration: none;
@@ -82,6 +83,7 @@ const Index = () => {
   ) : (
     <>
       <NewExpense to={'/expenses/new-expense'}>Add new expense</NewExpense>
+      {yearFilter !== defaultYearFilter && <Chart expenses={expensesList} />}
       <Filters
         year={yearFilter}
         yearChangedHandler={(year: string) => setYearFilter(year)}
