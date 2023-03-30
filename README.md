@@ -21,10 +21,12 @@ This project allows users to monitor their expenses by providing a financial con
 Users should be able to:
 
 - See the expenses list
+- See a chart by year
+- FIlter expenses by year and free text
 - Add/Remove/Edit/See expense
 - See warning for invalid inputs
 - See hover and focus states for all interactive elements on the page
-- Use the software on any device sizes
+- Use the software on any device
 
 ### Screenshot
 
@@ -51,6 +53,7 @@ Users should be able to:
 - React Router
 - TypeScript
 - Styled Components
+- Recharts
 - Vite
 - Firebase - BaaS
 
@@ -159,6 +162,37 @@ const NewExpense = styled(Link)`
     color: ${theme.colors.e};
   }
 `;
+```
+
+Building a chart using Recharts:
+
+```ts
+<ChartContainer>
+  <BarChart
+    width={700}
+    height={300}
+    data={data}
+    margin={{
+      top: 5,
+      right: 30,
+      left: 20,
+      bottom: 5,
+    }}
+    barSize={20}
+  >
+    <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
+    <YAxis />
+    <Tooltip />
+    <Legend />
+    <CartesianGrid strokeDasharray="3 3" />
+    <Bar
+      dataKey="amt"
+      fill={theme.colors.action}
+      background={{ fill: theme.colors.backgroud }}
+      name={'Amount ($)'}
+    />
+  </BarChart>
+</ChartContainer>
 ```
 
 ### Useful resources
